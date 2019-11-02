@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Candidates;
+use App\Candidate;
 
-class CandidatesController extends Controller
+class CandidateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class CandidatesController extends Controller
      */
     public function index()
     {
-        $candidates = Candidates::all();
+        $candidates = Candidate::all();
         return response()->json($candidates);
     }
 
@@ -38,7 +38,7 @@ class CandidatesController extends Controller
     {
         //
     }
-
+    
     /**
      * Display the specified resource.
      *
