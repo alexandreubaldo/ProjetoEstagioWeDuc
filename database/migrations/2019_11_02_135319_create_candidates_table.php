@@ -14,7 +14,7 @@ class CreateCandidatesTable extends Migration
     public function up()
     {
         Schema::create('candidates', function (Blueprint $table) {
-            $table->increments('id_candidates'); //
+            $table->increments('id_candidates'); //id candidato
             $table->string('name'); //Nome do candidato
             $table->date('date_of_birth'); //Data de nascimento do candidato
             $table->string('zip_code'); //Código de Endereçamento Postal do candidato
