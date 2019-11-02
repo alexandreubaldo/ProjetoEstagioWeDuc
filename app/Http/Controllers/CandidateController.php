@@ -36,7 +36,8 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $postData = $request->all();
+        dd($postData);
     }
     
     /**
