@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Candidate;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreCandidate;
+use App\Services\CandidateService;
 
 class CandidateController extends Controller
 {
@@ -32,29 +34,13 @@ class CandidateController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StoreCandidate  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCandidate $request)
     {
-        //Validação de campos
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|min:4|max:70',            
-            'date_of_birth' => 'required|date',
-            'zip_code' => 'required|digits:8', 
-            'city' => 'required', 
-            'state' => 'required'
-        ]);
-
-        if($validator->fails()) //se existe erros, envia os erros mais o código bad request (400)
-        {
-            $erros = $validator->errors();
-            return response()->json($erros, 400); 
-        }
-        
-        //Salvando no banco de dados
-        $candidate = Candidate::create($request->all());
-        return response()->json($candidate);
+        Candidate::create($request->validated());
+        return response()->json($request);
     }
     
     /**
