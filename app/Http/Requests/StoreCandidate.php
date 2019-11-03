@@ -24,8 +24,8 @@ class StoreCandidate extends FormRequest
     {
         return [
             'name' => 'required|min:4|max:70',            
-            'date_of_birth' => 'required|date',
-            'zip_code' => 'required|digits:8', 
+            'date_of_birth' => 'required|date|idadeSuficiente',
+            'zip_code' => 'required|digits:8|CEP', 
             'city' => 'required', 
             'state' => 'required'
         ];
