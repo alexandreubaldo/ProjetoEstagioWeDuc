@@ -54,7 +54,7 @@ class CandidateController extends Controller
         
         //Salvando no banco de dados
         $candidate = Candidate::create($request->all());
-        return response()->json('Deu certo');
+        return response()->json($candidate);
     }
     
     /**
