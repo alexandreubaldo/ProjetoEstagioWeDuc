@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +47,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        //A api retorna para a página principal quando a validação feita pelo StoreCandidate dá erro
+        //O próximo if corrige esse erro
+        if($request->is("api/*"))
+        {
+            if($exception instanceof ValidationException)
+            {
+                return response()->json($exception->errors(), $exception->status);
+            }
+        }
+
         return parent::render($request, $exception);
     }
 }

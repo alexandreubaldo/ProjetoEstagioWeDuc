@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Candidate;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreCandidate;
+use App\Services\CandidateService;
 
 class CandidateController extends Controller
 {
@@ -31,12 +34,13 @@ class CandidateController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StoreCandidate  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCandidate $request)
     {
-        //
+        Candidate::create($request->validated());
+        return response()->json($request);
     }
     
     /**
