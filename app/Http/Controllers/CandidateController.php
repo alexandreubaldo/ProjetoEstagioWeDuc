@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Candidate;
+use Illuminate\Support\Facades\Validator;
 
 class CandidateController extends Controller
 {
@@ -36,8 +37,24 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
-        $postData = $request->all();
-        dd($postData);
+        //Validação de campos
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:4|max:70',            
+            'date_of_birth' => 'required|date',
+            'zip_code' => 'required|digits:8', 
+            'city' => 'required', 
+            'state' => 'required'
+        ]);
+
+        if($validator->fails()) //se existe erros, envia os erros mais o código bad request (400)
+        {
+            $erros = $validator->errors();
+            return response()->json($erros, 400); 
+        }
+        
+        //Salvando no banco de dados
+        $candidate = Candidate::create($request->all());
+        return response()->json('Deu certo');
     }
     
     /**
